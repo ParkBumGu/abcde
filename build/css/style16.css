@@ -1,0 +1,244 @@
+/* General button style */
+.textstyle {
+	font-size: .0em;
+    font-weight: bold;
+	font-style: inherit;
+	padding: 0px 25px 20px 25px;
+	margin-left: 30px;
+}
+.btn {
+	border: none;
+	font-family: 'Lato';
+	font-size: inherit;
+	color: inherit;
+	background: none;
+	cursor: pointer;
+	display: inline-block;
+	margin: 6px;
+	text-transform: uppercase;
+	letter-spacing: 0px;
+	font-weight: 0;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	padding: 30px 0px;
+	margin-left: 16cm;
+}
+
+.btn:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+/* Pseudo elements for icons */
+.btn:before {
+	font-family: 'FontAwesome';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 0;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+
+
+/* Icon separator */
+.btn-sep {
+	padding: 5px 20px 15px 20px;
+	margin-left: 30px;
+}
+
+.btn-sep:before {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+/* Button 1 */
+.btn-1 {
+	background: #3498db;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-1:hover {
+	background: #2980b9;
+}
+
+.btn-1:active {
+	background: #2980b9;
+	top: 2px;
+}
+
+.btn-1:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 2 */
+.btn-2 {
+	background: #15cc61;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-2:hover {
+	background: #27ae60;
+}
+
+.btn-2:active {
+	background: #27ae60;
+	top: 2px;
+}
+
+.btn-2:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 3 */
+.btn-3 {
+	background: #e74c3c;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-3:hover {
+	background: #c0392b;
+}
+
+.btn-3:active {
+	background: #c0392b;
+	top: 2px;
+}
+
+.btn-3:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 4 */
+.btn-4 {
+	background: #1e4468;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-4:hover {
+	background: #2b4055;
+}
+
+.btn-4:active {
+	background: #2c3e50;
+	top: 2px;
+}
+
+.btn-4:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 5 */
+.btn-5 {
+	background: #ed0808;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-5:hover {
+	background: #eb8a8a;
+}
+
+.btn-5:active {
+	background: #2802ff;
+	top: 2px;
+}
+
+.btn-5:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 6 */
+.btn-6 {
+	background: #fa7603;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-6:hover {
+	background: #da7421;
+}
+
+.btn-6:active {
+	background: #ff6302;
+	top: 2px;
+}
+
+.btn-6:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+
+/* Button 7 */
+.btn-7 {
+	background: #f3f306;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.btn-7:hover {
+	background: #ecea84;
+}
+
+.btn-7:active {
+	background: #e9f504;
+	top: 2px;
+}
+
+.btn-7:before {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	line-height: 3;
+	font-size: 140%;
+	width: 60px;
+}
+

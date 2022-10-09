@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>집테리어 GibTerrior - 새로만들기</title>
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<link href="css/app.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style16.css">
+	<!-- <link rel="stylesheet" href="css/styles8.css"> -->
+
+	<script src="js/lib/jquery-2.1.4.min.js"></script>
+	<script src="js/lib/jquery.flip.min.js"></script>
+	<script src="js/lib/dat.gui.min.max.js"></script> <!-- dat.gui.min.max.js 수정후 min.js로 업데이트 필요  -->
+	<script src="js/lib/quicksettings.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+
+	<script src="js/bp3djs.js"></script> <!-- bp3djs.js 수정후 min.js로 업데이트 필요 -->
+	<script src="js/items.js"></script>
+	<script src="js/items_gltf.max.js"></script><!-- items_gltf.max.js 수정후 min.js로 업데이트 필요 -->
+	<script src="js/app_2.new_40.js"></script>
+
+	<!-- img 저장 라이브러리 -->
+	<script src="js/lib/html2canvas.js"></script>
+	<!-- pdf 저장 라이브러리 -->
+	<script src="js/lib/jspdf.min.js"></script>
+
+	<!-- img 저장 스크립트 -->
+	<script>
+		$(function(){
+		    $(".btn_download_2D_img").click(function(e){
+		        html2canvas(document.getElementById("floorplanner-canvas")).then(function(canvas) {
+		            var el = document.createElement("a")
+		            el.href = canvas.toDataURL("image/jpeg")
+		            el.download = '2D포트폴리오_img.jpg' //다운로드 할 파일명 설정
+		            el.click()
+		        })
+		    })
+		})
+		$(function(){
+		    $(".btn_download_3D_img").click(function(e){
+		        html2canvas(document.getElementById("viewer")).then(function(canvas) {
+		            var el = document.createElement("a")
+		            el.href = canvas.toDataURL("image/jpeg")
+		            el.download = '3D포트폴리오_img.jpg' //다운로드 할 파일명 설정
+		            el.click()
+		        })
+		    })
+		})
+		$(document).ready(function() {
+			$('#btn_download_2D_pdf').click(function() { // pdf저장 button id
+				html2canvas($('#floorplanner-canvas')[0]).then(function(canvas) { //저장 영역 div id
+				// 캔버스를 이미지로 변환
+				var imgData = canvas.toDataURL('image/png');
+				var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+				var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+				var imgHeight = canvas.height * imgWidth / canvas.width;
+				var heightLeft = imgHeight;
+				var margin = 10; // 출력 페이지 여백설정
+				var doc = new jsPDF('p', 'mm');
+				var position = 0;
+				// 첫 페이지 출력
+				doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+				heightLeft -= pageHeight;
+				// 한 페이지 이상일 경우 루프 돌면서 출력
+				while (heightLeft >= 20) {
+					position = heightLeft - imgHeight;
+					doc.addPage();
+					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+					heightLeft -= pageHeight;
+				}
+				// 파일 저장
+				doc.save('2D포트폴리오_pdf.pdf');
+			});
+			});
+		})
+		$(document).ready(function() {
+			$('#btn_download_3D_pdf').click(function() { // pdf저장 button id
+				html2canvas($('#viewer')[0]).then(function(canvas) { //저장 영역 div id
+				// 캔버스를 이미지로 변환
+				var imgData = canvas.toDataURL('image/png');
+				var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+				var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+				var imgHeight = canvas.height * imgWidth / canvas.width;
+				var heightLeft = imgHeight;
+				var margin = 10; // 출력 페이지 여백설정
+				var doc = new jsPDF('p', 'mm');
+				var position = 0;
+				// 첫 페이지 출력
+				doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+				heightLeft -= pageHeight;
+				// 한 페이지 이상일 경우 루프 돌면서 출력
+				while (heightLeft >= 20) {
+					position = heightLeft - imgHeight;
+					doc.addPage();
+					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+					heightLeft -= pageHeight;
+				}
+				// 파일 저장
+				doc.save('2D포트폴리오_pdf');
+			});
+			});
+		})
+	</script>
+</head>
+
+<div id='interfaces' class='card'>
+	<div id="floorplanner" class='front'>
+		<div id="floorplanner-controls">
+			<!-- 홈화면가기 -->
+			<a href="index.html" class="btn btn-sep btn-5 textstyle "id="myspace" title="my space" 
+			style="backface-visibility: hidden;width: 100 px;height: 50px; width: 130px;"><H4><strong>홈으로</strong></H4></a>
+
+			<br>
+			<!-- 새로만들기 -->
+			<a href="#" class="btn btn-sep btn-4 textstyle "id="new2d" title="New Layout"
+				style="backface-visibility: hidden;width: 100 px;height: 50px; width: 130px"><H4><strong>새로만들기</strong></H4></a>
+			<br>
+			<!-- 저장하기 -->
+			<a href="#" class="btn btn-sep btn-4 textstyle "id="saveFile2d" title="Save Layout"
+				style="backface-visibility: hidden;width: 100 px;height: 50px; width: 130px"><H4><strong>저장하기</strong></H4></a>
+			<br>
+			<!-- 불러오기 -->
+			<a class="btn btn-sep btn-4  textstyle btn-file" 
+			style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px">
+				<input type="file" class="hidden-input" id="loadFile2d"><H4><strong>불러오기</strong></H4></a>
+			<br>
+
+			<!-- 벽 움직이기 -->
+			<button id="move" class="btn btn-sep btn-2 textstyle"
+				style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px"
+				title="Move Walls"><H4><strong>벽이동</strong></H4>
+				<!-- <span class="glyphicon glyphicon-move"></span> -->
+			</button>
+			<br>
+			<!-- 벽 그리기 -->
+			<button id="draw" class="btn btn-sep btn-2 textstyle"
+				style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px"
+				title="Draw New Walls"><H4><strong>벽추가</strong></H4>
+				<!-- <span class="glyphicon glyphicon-pencil"></span> -->
+			</button>
+			<br>
+			<!-- 벽 삭제하기 -->
+			<button id="delete" class="btn btn-sep btn-2 textstyle"
+				style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px"
+				title="Delete Walls"><H4><strong>벽삭제</strong></H4>
+				<!-- <span class="glyphicon glyphicon-remove"></span> -->
+			</button>
+			<br>
+			<!-- img 저장 -->
+			<a href="#" class="btn btn-sep btn-1 textstyle btn_download_2D_img" title="2D screeshot" 
+			style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px"><H4><strong>JPG저장</strong></H4></a>
+			<br>
+			<!-- pdf 저장 -->
+			<button id = "btn_download_2D_pdf" class="btn btn-sep btn-1 textstyle" title="2D pdf"
+			style="backface-visibility: hidden;width: 100 px;height: 50px;width: 130px"><H4><strong>PDF저장</strong></H4>
+			</button>
+		</div>
+		<div class="btn-hint ">Press the "Esc" key to stop drawing
+			walls</div>
+		<canvas id="floorplanner-canvas"></canvas>
+	</div>
+
+	<div id="viewer" class='back'>
+		<div id="main-controls">
+			<!-- 홈화면가기 -->
+			<a href="index.html" class="btn btn-sep btn-5 textstyle "id="myspace" title="my space" 
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px"><H4><strong>홈으로</strong></H4></a>
+			
+			<br>
+			<!-- 새로만들기 -->
+			<a href="#" class="btn btn-sep btn-4 textstyle"	id="new" title="New Layout" 
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px"><H4><strong>새로만들기</strong></H4></a>
+			<br>
+			<!-- 저장하기 -->
+			<a href="#" class="btn btn-sep btn-4 textstyle"id="saveFile" title="Save Layout" 
+			style="backface-visibility: hidden;width:150 px;height: 50px;width: 130px"><H4><strong>저장하기</strong></H4></a>
+			<br>
+			<!-- 불러오기 -->
+			<a class="btn btn-sep btn-4  textstyle btn-file" 
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px">
+				<input type="file" class="hidden-input" id="loadFile"><H4><strong>불러오기</strong></H4></a>
+			<br>
+			<!-- gltf 저장하기 -->
+			<a href="#" class="btn btn-sep btn-1 textstyle" id="saveGLTF" title="Save Scene as a GLTF" 
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px"><H4><strong>GLTF저장</strong></H4></a>
+			<br>
+			<!-- img 저장하기 -->
+			<a href="#" class="btn btn-sep btn-1 textstyle btn_download_3D_img" title="3D screeshot" 
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px"><H4><strong>JPG저장</strong></H4></a>
+			<br>
+			<!-- pdf 저장하기 -->
+			<a href="#" id = "btn_download_3D_pdf" class="btn btn-sep btn-1 textstyle" title="3D pdf"
+			style="backface-visibility: hidden;width: 150 px;height: 50px;width: 130px"><H4><strong>PDF저장</strong></H4></a>
+		</div>
+	</div>
+</div>
+<div id='interface-controls'>
+	<button id="showFloorPlan" title="시공위치 변경화면" class="btn btn-1 btn-sep" style="backface-visibility: hidden;width: 100 px;height: 90px;">
+		<h1><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="35" height="35"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+			<path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/></svg>
+			<strong>2D포트폴리오</strong></h1>
+	</button>
+		<!-- <span class="glyphicon glyphicon-move"></span>  -->
+	<button id="showDesign" title="시공내용 작성화면" class="btn btn-2 btn-sep" style="backface-visibility: hidden;width: 100 px;height: 90px;">
+		<h1><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="35" height="35"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+			<path d="M290.8 48.6l78.4 29.7L288 109.5 206.8 78.3l78.4-29.7c1.8-.7 3.8-.7 5.7 0zM136 92.5V204.7c-1.3 .4-2.6 .8-3.9 1.3l-96 36.4C14.4 250.6 0 271.5 0 294.7V413.9c0 22.2 13.1 42.3 33.5 51.3l96 42.2c14.4 6.3 30.7 6.3 45.1 0L288 457.5l113.5 49.9c14.4 6.3 30.7 6.3 45.1 0l96-42.2c20.3-8.9 33.5-29.1 33.5-51.3V294.7c0-23.3-14.4-44.1-36.1-52.4l-96-36.4c-1.3-.5-2.6-.9-3.9-1.3V92.5c0-23.3-14.4-44.1-36.1-52.4l-96-36.4c-12.8-4.8-26.9-4.8-39.7 0l-96 36.4C150.4 48.4 136 69.3 136 92.5zM392 210.6l-82.4 31.2V152.6L392 121v89.6zM154.8 250.9l78.4 29.7L152 311.7 70.8 280.6l78.4-29.7c1.8-.7 3.8-.7 5.7 0zm18.8 204.4V354.8L256 323.2v95.9l-82.4 36.2zM421.2 250.9c1.8-.7 3.8-.7 5.7 0l78.4 29.7L424 311.7l-81.2-31.1 78.4-29.7zM523.2 421.2l-77.6 34.1V354.8L528 323.2v90.7c0 3.2-1.9 6-4.8 7.3z"/></svg>
+			<strong>3D포트폴리오</strong></h1>
+	</button>
+	<button id="showAddItems" title="3D아이템 선택,삭제" class="btn btn-3 btn-sep icon-cart"
+	data-toggle="modal" data-target="#add-items-modal" title="Add/Remove items in 3D" style="backface-visibility: hidden;width: 100 px;height: 90px;">
+		<h1><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="35" height="35"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M64 160C64 89.3 121.3 32 192 32H448c70.7 0 128 57.3 128 128v33.6c-36.5 7.4-64 39.7-64 78.4v48H128V272c0-38.7-27.5-71-64-78.4V160zM544 272c0-20.9 13.4-38.7 32-45.3c5-1.8 10.4-2.7 16-2.7c26.5 0 48 21.5 48 48V448c0 17.7-14.3 32-32 32H576c-17.7 0-32-14.3-32-32H96c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V272c0-26.5 21.5-48 48-48c5.6 0 11 1 16 2.7c18.6 6.6 32 24.4 32 45.3v48 32h32H512h32V320 272z"/>
+		</svg><strong> 시공내용 선택</strong></h1>
+	</button>
+	<!-- <button id="personFPS" class="btn btn-sm btn-default" title="사용자 1인칭시점"
+	style="top: 1px;margin-top: 0px;border-top-width: 1px;padding: 5px;width: 175px;height: 60px;margin-left: 8.40cm; background-image: url('./img/icon/myspace.png');">
+	</button> -->
+
+	<div class="btn-group" id='viewcontrols' style="display: inline-block; padding-left: 3cm;" >
+				<a class="btn btn-sep btn-6 textstyle" href="#" id="topview" title="Show top view"
+					style="backface-visibility: hidden;width: 100 px;height: 55px;"><H4><strong>위에서보기</strong></H4>
+				</a>
+				<a class="btn btn-sep btn-6 textstyle" href="#" id="isometryview" title="Show 3d view"
+					style="backface-visibility: hidden;width: 100 px;height: 55px;"><H4><strong>멀리서보기</strong></H4>
+				</a>
+				<a class="btn btn-sep btn-6 textstyle" href="#" id="personFPS"  title="3D FPS모델"
+				style= "backface-visibility: hidden;width: 100 px;height: 55px;"><H4><strong>1인칭시점</strong></H4>
+				</a>
+	</div>
+</div>
+
+
+<!-- Add Items -->
+<div class="modal fade" id="add-items-modal" role="dialog" >
+	<div class="modal-dialog">
+		<div class="modal-content" style="display:inline-block">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">원하는 시공내용을 선택하시오</h4>
+			</div>
+			<div class="modal-body">
+				<div id="add-items" class="panel-group">
+
+					<div id="floor-items" class="panel panel-default">
+						<div id="floor-items-header" class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#add-items" href="#floor-items-body">실내 인테리어
+									가구</a>
+							</h4>
+						</div>
+						<div id="floor-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="floor-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+					<div id="on-floor-items" class="panel panel-default">
+						<div id="on-floor-items-header" class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items"
+									href="#on-floor-items-body">실내 인테리어 제품</a></h4>
+						</div>
+						<div id="on-floor-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="on-floor-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+					<div id="wall-floor-items" class="panel panel-default">
+						<div id="wall-floor-items-header" class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items"
+									href="#wall-floor-items-body">실내 붙박이 인테리어 가구</a></h4>
+						</div>
+						<div id="wall-floor-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="wall-floor-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+
+
+					<div id="roof-items" class="panel panel-default">
+						<div id="roof-items-header" class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#add-items" href="#roof-items-body">천장 등기구
+									인테리어</a>
+							</h4>
+						</div>
+						<div id="roof-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="roof-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+
+
+					<div id="wall-items" class="panel panel-default">
+						<div id="wall-items-header" class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items"
+									href="#wall-items-body">주방 욕실 인테리어</a></h4>
+						</div>
+						<div id="wall-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="wall-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+					<div id="in-wall-items" class="panel panel-default">
+						<div id="in-wall-items-header" class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items"
+									href="#in-wall-items-body">창문 샷시 인테리어</a></h4>
+						</div>
+						<div id="in-wall-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="in-wall-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+					<div id="in-wall-floor-items" class="panel panel-default">
+						<div id="in-wall-floor-items-header" class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items"
+									href="#in-wall-floor-items-body">현관문 및 방문 인테리어</a></h4>
+						</div>
+						<div id="in-wall-floor-items-body" class="panel-collapse collapse inventory-content">
+							<div class="row panel-body" id="in-wall-floor-items-wrapper">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+				style="width: 100px;">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+
+</html>

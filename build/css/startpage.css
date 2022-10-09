@@ -1,0 +1,158 @@
+/* Crafted with love by Kristof Michiels in Antwerp in october 2015. All HTML and CSS, no JavaScript. I was inspired by David DeSandro's technique (link below) for the implementation of the flipping tiles. If you would like to use this design, feel free, but please credit me. Thank you! */
+
+body {
+    width: 1000px;
+    margin: 50px auto 0 auto;
+    font-family: Arimo, sans-serif;
+    font-size: 100%;}
+  
+  h1 {
+    font-size: 2.2em;
+    text-align: center;
+    font-weight: 700;
+    color: #314140;
+    
+    
+    letter-spacing: 0.04em;}
+  
+  h1 span {
+    color: #ccc;
+  }
+  
+  h2 {
+    clear: left;
+    margin-bottom: 30px;
+    margin-right: 80px;
+    padding-top: 5px;
+    float: right;
+    font-size: 1.25em;
+    color: #314140;
+    letter-spacing: 0.06em;}
+  
+  h2.left {
+    float: none;}
+  
+  p {
+    clear: both;
+    text-align: center;
+    padding-top: 25px;
+    margin-bottom: 50px;}
+  
+  ul {
+    clear: both;}
+  
+  li {
+    width: 200px;
+    height: 200px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    float: left;
+    position: relative;
+    perspective: 800px;}
+  
+  li:nth-child(4), li:nth-child(8){
+    margin-right: 0;}
+  
+  ul a {
+    display: block;
+    font-size: 1.25em;
+    letter-spacing: 3px;
+    text-align: center;
+    width: 200px;
+    height: 120px;
+    color: white;
+    padding-top: 80px;
+    text-decoration: none;}
+  
+  ul .back a {
+    font-size: 0.8em;
+    padding-top: 20px;
+    height: 180px;}
+  
+  ul .back a span {
+    font-size: 1.25em;
+    display: block;
+    height: 140px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 180px;
+    font-weight: 400;
+    line-height: 1.45em;}
+  
+  .xl a {
+    height: 138px;
+    padding-top: 62px;
+    line-height: 32px;}
+  
+  p {
+    color: #ccc;
+    font-size: 1.05em;}
+  
+  p a {color: black;}
+  
+  /* colors, colors, colors... */
+  
+  #region1 .c1 {background-color: #F0AA31;}
+  #region1 .c2 {background-color: #CD4270;}
+  #region1 .c3 {background-color: #458E4B;}
+  #region1 .c4 {background-color: #4D92CC;}
+  #region1 .c5 {background-color: #EFEA42;}
+  #region1 .c6 {background-color: #ECB7D0;}
+  #region1 .c7 {background-color: #ECC374;}
+  #region1 .c8 {background-color: #E98B2E;}
+  
+  #region2 .c1 {background-color: #EB4F43;}
+  #region2 .c2 {background-color: #EED348;}
+  #region2 .c3 {background-color: #062F55;}
+  #region2 .c4 {background-color: #51A50E;}
+  #region2 .c5 {background-color: #F1AAD7;}
+  #region2 .c6 {background-color: #A0F02F;}
+  #region2 .c7 {background-color: #ECC374;}
+  #region2 .c8 {background-color: #E98B2E;}
+  
+  #region3 .c1 {background-color: #4BA158;}
+  #region3 .c2 {background-color: #2E90D5;}
+  #region3 .c3 {background-color: #9C7D46;}
+  #region3 .c4 {background-color: #45A198;}
+  #region3 .c5 {background-color: #C73A39;}
+  #region3 .c6 {background-color: #DD9E2B;}
+  #region3 .c7 {background-color: #979799;}
+  #region3 .c8 {background-color: #CA4488;}
+  
+  #region4 .c1 {background-color: #418242;}
+  #region4 .c2 {background-color: #D26F2B;}
+  #region4 .c3 {background-color: #C93B3D;}
+  #region4 .c4 {background-color: #E09B2C;}
+  #region4 .c5 {background-color: #9D5B9B;}
+  #region4 .c6 {background-color: #305AA4;}
+  #region4 .c7 {background-color: #CD4588;}
+  #region4 .c8 {background-color: #795724;}
+  
+  /* kudos to David DeSandro for his card flip technique https://desandro.github.io/3dtransforms/docs/card-flip.html */
+  
+  .tile {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 1s;
+            transition: transform 1s;
+  }
+  
+  .tile figure {
+    margin: 0;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;}
+  
+  .tile .back {
+    -webkit-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );}
+  
+  .tile:hover {
+    -webkit-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );}
